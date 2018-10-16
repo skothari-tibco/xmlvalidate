@@ -3,8 +3,6 @@ package xmlvalidate
 import (
 	"fmt"
 	"io/ioutil"
-	"os"
-	"os/exec"
 	"strings"
 
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
@@ -18,11 +16,6 @@ var activityLog = logger.GetLogger("activity-flogo-xmlactivity")
 
 func init() {
 	activityLog.SetLogLevel(logger.InfoLevel)
-	_, err = os.Stat("/usr/local/opt/libxml2/lib/pkgconfig")
-
-	if os.IsNotExist(err) {
-		InstallLibxml()
-	}
 }
 
 type XmlValidate struct {
@@ -38,8 +31,6 @@ func (a *XmlValidate) Metadata() *activity.Metadata {
 }
 
 func (a *XmlValidate) Eval(ctx activity.Context) (done bool, err error) {
-
-	os.Setenv("PKG_CONFIG_PATH", "/usr/local/opt/libxml2/lib/pkgconfig")
 
 	xml := ctx.GetInput("text").(string)
 	xsds := ctx.GetInput("path").(string)
@@ -62,18 +53,6 @@ func (a *XmlValidate) Eval(ctx activity.Context) (done bool, err error) {
 	return true, nil
 }
 
-func InstallLibxml() {
-	cli, err := exec.Command("brew", "install", "pkg-config").CombinedOutput()
-	if err != nil {
-		fmt.Println(string(cli))
-		fmt.Println("Error in deletecting pkg-config")
-	}
-	cli, err = exec.Command("brew", "install", "libxml2").CombinedOutput()
-	if err != nil {
-		fmt.Println(string(cli))
-		fmt.Println("Error in deletecting Libxml2")
-	}
-}
 func isPath(s string) bool {
 
 	return strings.Contains(s, "file://")
