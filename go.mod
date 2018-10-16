@@ -1,4 +1,4 @@
-module xmlvalidate
+module github.com/skothari-tibco/xmlvalidate
 
 require (
 	github.com/Sirupsen/logrus v1.1.1
