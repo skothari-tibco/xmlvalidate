@@ -18,6 +18,11 @@ var activityLog = logger.GetLogger("activity-flogo-xmlactivity")
 
 func init() {
 	activityLog.SetLogLevel(logger.InfoLevel)
+	_, err = os.Stat("/usr/local/opt/libxml2/lib/pkgconfig")
+
+	if os.IsNotExist(err) {
+		InstallLibxml()
+	}
 }
 
 type XmlValidate struct {
@@ -34,11 +39,6 @@ func (a *XmlValidate) Metadata() *activity.Metadata {
 
 func (a *XmlValidate) Eval(ctx activity.Context) (done bool, err error) {
 
-	_, err = os.Stat("/usr/local/opt/libxml2/lib/pkgconfig")
-
-	if os.IsNotExist(err) {
-		InstallLibxml()
-	}
 	os.Setenv("PKG_CONFIG_PATH", "/usr/local/opt/libxml2/lib/pkgconfig")
 
 	xml := ctx.GetInput("text").(string)
