@@ -7,9 +7,9 @@ import (
 
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
 	"github.com/TIBCOSoftware/flogo-lib/logger"
-	"github.com/lestrrat/go-libxml2"
-	"github.com/lestrrat/go-libxml2/parser"
-	"github.com/lestrrat/go-libxml2/xsd"
+	"github.com/lestrrat-go/libxml2"
+	"github.com/lestrrat-go/libxml2/parser"
+	"github.com/lestrrat-go/libxml2/xsd"
 )
 
 var activityLog = logger.GetLogger("activity-flogo-xmlactivity")
