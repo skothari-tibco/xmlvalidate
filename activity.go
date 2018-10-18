@@ -40,8 +40,14 @@ func (a *XmlValidate) Eval(ctx activity.Context) (done bool, err error) {
 	if isPath(xsds) {
 		byteArray, _ := ioutil.ReadFile(strings.Split(xsds, "://")[1])
 		schema, err = xsd.Parse(byteArray)
+		if err != nil {
+			return true, err
+		}
 	} else {
 		schema, err = xsd.Parse([]byte(xsds))
+		if err != nil {
+			return true, err
+		}
 	}
 
 	defer schema.Free()

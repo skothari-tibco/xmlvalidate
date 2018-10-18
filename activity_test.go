@@ -91,12 +91,12 @@ func TestEval2(t *testing.T) {
   </xs:schema>`)
 
 	tc.SetInput("text", `<html>
-  <body> Hey <body>
+  <xml> Hey </xml>
   </html>`)
 
 	val, _ := act.Eval(tc)
-
 	fmt.Println(val)
-	assert.Equal(t, val, false)
+	result := tc.GetOutput("isValid")
+	assert.Equal(t, result, false)
 
 }
