@@ -7,7 +7,6 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/krolaw/xsd v0.0.0-20181003005531-6e00d9d069d0
 	github.com/lestrrat-go/libxml2 v0.0.0-20180810110639-f24a389bbd76
-
 	github.com/pkg/errors v0.8.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/stretchr/testify v1.2.2

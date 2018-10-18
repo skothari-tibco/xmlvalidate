@@ -1,7 +1,6 @@
 package xmlvalidate
 
 import (
-	"fmt"
 	"io/ioutil"
 	"strings"
 
@@ -48,9 +47,11 @@ func (a *XmlValidate) Eval(ctx activity.Context) (done bool, err error) {
 	defer schema.Free()
 	doc, err := libxml2.Parse([]byte(xml), parser.XMLParseRecover)
 	if err := schema.Validate(doc); err != nil {
-		fmt.Println("Error")
-		return false, nil
+		//fmt.Println("Error")
+		ctx.SetOutput("isValid", false)
+		return true, nil
 	}
+	ctx.SetOutput("isValid", true)
 	return true, nil
 }
 
