@@ -41,23 +41,38 @@ func (a *XmlValidate) Eval(ctx activity.Context) (done bool, err error) {
 		byteArray, _ := ioutil.ReadFile(strings.Split(xsds, "://")[1])
 		schema, err = xsd.Parse(byteArray)
 		if err != nil {
-			return true, err
+			ctx.SetOutput("isValid", false)
+			ctx.SetOutput("log", err.Error())
+			return true, nil
 		}
 	} else {
 		schema, err = xsd.Parse([]byte(xsds))
 		if err != nil {
-			return true, err
+			ctx.SetOutput("isValid", false)
+			ctx.SetOutput("log", err.Error())
+			return true, nil
 		}
 	}
 
 	defer schema.Free()
+
 	doc, err := libxml2.Parse([]byte(xml), parser.XMLParseRecover)
-	if err := schema.Validate(doc); err != nil {
+
+	if err != nil {
+		ctx.SetOutput("isValid", false)
+		ctx.SetOutput("log", err.Error())
+		return true, nil
+	}
+
+	if err = schema.Validate(doc); err != nil {
 		//fmt.Println("Error")
 		ctx.SetOutput("isValid", false)
+
+		ctx.SetOutput("log", err.Error())
 		return true, nil
 	}
 	ctx.SetOutput("isValid", true)
+	ctx.SetOutput("log", "")
 	return true, nil
 }
 

@@ -29,6 +29,10 @@ var jsonMetadata = `
       {
         "name": "isValid",
         "type": "bool"
+      },
+      {
+        "name": "log",
+        "type": "string"
       }
     ]
   }

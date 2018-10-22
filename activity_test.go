@@ -36,6 +36,7 @@ func TestCreate(t *testing.T) {
 		return
 	}
 }
+
 func TestEval(t *testing.T) {
 
 	defer func() {
@@ -97,6 +98,7 @@ func TestEval2(t *testing.T) {
 	val, _ := act.Eval(tc)
 	fmt.Println(val)
 	result := tc.GetOutput("isValid")
+	//fmt.Println(tc.GetOutput("log"))
 	assert.Equal(t, result, false)
 
 }
